@@ -47,7 +47,7 @@ void CList2D::Init()
 	}
 	m_head = ppnode[0];
 	
-	if (m_curlinecnt>2 && m_curcolumncnt>2)
+	if (m_curlinecnt>=2 && m_curcolumncnt>=2)
 	{
 		for (li=1; li<m_curlinecnt-1; li++)
 		{
@@ -102,6 +102,12 @@ void CList2D::Init()
 		ptmp = ppnode[sz-1];//bottom right
 		ptmp->SetUpNode(ppnode[sz-m_curcolumncnt-1]);
 		ptmp->SetLeftNode(ppnode[sz-2]);
+	}else if (m_curlinecnt==1 && m_curcolumncnt>=2)//only one line
+	{
+
+	}else if (m_curlinecnt>=2 && m_curcolumncnt==1)//only one colume
+	{
+
 	}
 
 	delete[]ppnode;
@@ -196,6 +202,7 @@ bool CList2D::AddColumn2Left()
 		plastnode->SetLeftNode(pnewnode);
 	}
 
+	m_curcolumncnt++;
 	m_head = m_head->GetLeftNode();//new head
 	return true;
 }
@@ -223,6 +230,7 @@ bool CList2D::AddColumn2Right()
 		}
 		plastnode->SetRightNode(pnewnode);
 	}
+	m_curcolumncnt++;
 	return true;
 }
 
@@ -246,6 +254,7 @@ void CList2D::DeleteOneLine(CList2DNode* pleftnode)//delete from left to right
 
 		delete plastnode;
 	}
+	m_curlinecnt--;
 }
 
 void CList2D::DeleteOneColumn(CList2DNode* ptopnode)//delete from top to bottom
@@ -268,6 +277,7 @@ void CList2D::DeleteOneColumn(CList2DNode* ptopnode)//delete from top to bottom
 
 		delete plastnode;
 	}
+	m_curcolumncnt--;
 }
 
 void CList2D::DeleteAll()
@@ -291,6 +301,8 @@ void CList2D::DeleteAll()
 		delete pleftmost;
 	}
 	m_head = 0;
+	m_curlinecnt = 0;
+	m_curcolumncnt = 0;
 }
 
 void CList2D::MoveBottomLine2Top()
