@@ -26,7 +26,7 @@ bool PrintNodeData(CList2DNode* pnode)
 
 int main(int argc, char*argv[])
 {
-	CList2D lst2d(2, 2);
+	CList2D lst2d(4, 1);
 	lst2d.ForEach(SetNodeData);
 	lst2d.ForEach(PrintNodeData);
 	printf("\n\n");

@@ -102,10 +102,24 @@ void CList2D::Init()
 		ptmp->SetLeftNode(ppnode[sz-2]);
 	}else if (m_curlinecnt==1 && m_curcolumncnt>=2)//only one line
 	{
-
-	}else if (m_curlinecnt>=2 && m_curcolumncnt==1)//only one colume
+		ppnode[0]->SetRightNode(ppnode[1]);
+		ppnode[m_curcolumncnt-1]->SetLeftNode(ppnode[m_curcolumncnt-2]);
+		for (co=1; co<m_curcolumncnt-1; co++)
+		{
+			ptmp = ppnode[co];
+			ptmp->SetLeftNode(ppnode[co-1]);
+			ptmp->SetRightNode(ppnode[co+1]);
+		}
+	}else if (m_curlinecnt>=2 && m_curcolumncnt==1)//only one column
 	{
-
+		ppnode[0]->SetDownNode(ppnode[1]);
+		ppnode[m_curlinecnt-1]->SetUpNode(ppnode[m_curlinecnt-2]);
+		for (li=1; li<m_curlinecnt-1; li++)
+		{
+			ptmp = ppnode[li];
+			ptmp->SetUpNode(ppnode[li-1]);
+			ptmp->SetDownNode(ppnode[li+1]);
+		}
 	}
 
 	delete[]ppnode;
