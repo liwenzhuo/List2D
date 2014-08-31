@@ -34,8 +34,6 @@ void CList2D::ForEach(bool (*pFunc)(CList2DNode*))
 
 void CList2D::Init()
 {
-	DeleteAll();
-
 	int idx=0;
 	int li,co;
 	int sz = m_curcolumncnt*m_curlinecnt;
